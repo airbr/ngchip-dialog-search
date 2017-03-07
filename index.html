@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+    <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.3/docs.css'>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.3/angular-material.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body ng-app="MyApp" ng-controller="AppCtrl" ng-cloak>
+
+<md-button class="md-primary md-raised md-whiteframe-24dp" ng-click="showAdvanced($event)">
+    <div>...</div>
+</md-button>
+
+<div class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
+    <div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+        <md-button class="md-primary md-raised" ng-if="listPrerenderedButton" ng-click="showPrerenderedDialog($event)">
+            dev
+        </md-button>
+    </div>
+
+    <div class="dialog-demo-prerendered">
+        <md-checkbox ng-model="listPrerenderedButton">See Answers/'back-end'</md-checkbox>
+        <md-checkbox ng-model="customFullscreen" aria-label="Fullscreen custom dialog">Use full screen mode for custom dialog</md-checkbox>
+    </div>
+
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="myDialog">
+            <md-dialog layout-padding="">
+                <h3>pre-render/dev console</h3>
+                <br>
+                <div ng-if="status" id="status">
+                    <b layout="column" layout-align="center center" class="md-padding">
+                        <div id="demo"></div>
+    "current answer":
+{{answerCurrent}}
+<pre>
+    "Collection of all answers:"
+{{answerCollection}}
+</pre>
+                    </b>
+                </div>
+            </md-dialog>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog ng-controller="CustomInputCtrl as ctrl" aria-label="...">
+        <form name="searchForm" ng-cloak>
+            <md-toolbar class="fixtest">
+                <div class="md-toolbar-tools">
+                    <md-dialog-actions class="flex" layout="row">
+                        <md-button class="md-warn md-raised" ng-click="cancel()">
+                            Back
+                        </md-button>
+                        <md-button class="md-accent md-raised" ng-click="answer(ctrl.selectedChips)">
+                            Submit
+                        </md-button>
+                    </md-dialog-actions>
+                </div>
+                <!--searchInput is a md-chip & md-autocomplete that has display:none applied to the chips at its element. The chips are added to the ng-model that is displayed visually in following md-chips-->
+                <md-input-container name="searchInput" class="" md-no-float="true">
+                    <md-chips class="clearsearchchips searchInput" md-autocomplete-snap="" readonly="false" ng-model="ctrl.selectedChips" md-transform-chip="ctrl.transformThingChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch" md-removable="false">
+                        <md-autocomplete md-autofocus md-menu-class="menuitem" md-select-on-match="true"	md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearchThing(ctrl.searchText)" md-item-text="item.thing" placeholder="Search...">
+                            <span md-highlight-text="ctrl.searchText" placeholder="">{{item.thing}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                                    <span>
+                                      <strong>{{$chip.thing}}</strong>
+                                    </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+            </md-toolbar>
+
+            <!--TODO: fix css issue with MD-content under-lapping md-toolbar when large amount of content in dialog... <br>'s for now -->
+            <br><br><br><br><br><br><br><br><br>
+
+            <md-dialog-content>
+                <div layout="column" ng-cloak class="scroll">
+
+                    <md-content class="md-padding" layout="column">
+
+                        <span ng-show="!ctrl.searchText.length && ctrl.selectedChips.length">Selected:</span>
+                        <!--<span ng-show="ctrl.searchText.length">Entered!</span>-->
+                        <div>
+                            <!--md-chips that have been pushed into selectedChips, not visible when search input empty   -->
+                            <md-chips ng-show="!ctrl.searchText.length" md-autocomplete-snap="" class="selected" readonly="true" ng-model="ctrl.selectedChips" md-transform-chip="ctrl.transformChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch" md-removable="false">
+                                <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.thing" placeholder="..">
+                                    <span md-highlight-text="ctrl.searchText" placeholder="">{{item.thing}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                            <span md-chip-remove>
+                                                {{$chip.thing}}
+                                            </span>
+                                </md-chip-template>
+                            </md-chips>
+                        </div>
+                        <hr width="100%">
+                        <!--Show chips 1. that are currently within search scope from the array and able to be selected to be added. 2. Add selected class if in selectedChips NB Former logic of:  ng-if="ctrl.selectedChips.indexOf($chip) == -1" i.e. "only show if not in the index of selected- chips -->
+                        <md-chips class="">
+                            <md-chip ng-class="ctrl.selectedChips.indexOf($chip) !== -1 ? 'formchoice' : 'custom-chips'" ng-repeat="$chip in ctrl.Thing | filter:ctrl.searchText" ng-click="ctrl.selectChip($chip)">{{ $chip.thing }}</md-chip>
+                        </md-chips>
+                    </md-content>
+                </md-dialog-content>
+            </div>
+        </form>
+    </md-dialog>
+</script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-route.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-animate.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.2/angular-aria.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.2/angular-messages.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.3/angular-material.js'></script>
+
+<script type="text/javascript" src='app.js'></script>
+
+
+</body>
+
+</html>
