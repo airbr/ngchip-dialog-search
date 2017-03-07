@@ -1,0 +1,1 @@
+ngchip-dialog-search
