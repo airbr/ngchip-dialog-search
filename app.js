@@ -1,13 +1,15 @@
-angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 
     .controller('AppCtrl', function($scope, $mdDialog) {
+
+        console.log($scope);
 
         var self = this;
 
         $scope.answerCollection = [];
 
         $scope.status = ' ';
-        
+
         /* Set to true for full screen mobile testing of dialogs by default. */
         $scope.customFullscreen = true;
 
@@ -42,6 +44,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
         };
 
         function DialogController($scope, $mdDialog) {
+
             $scope.hide = function() {
                 console.log("hide");
                 $mdDialog.hide();
@@ -64,7 +67,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 (function () {
     'use strict';
     angular
-        .module('MyApp')
+        .module('chipDialogSearch')
         .controller('CustomInputCtrl', chipCtrl);
 
     function chipCtrl ($timeout, $q, $scope, $mdDialog) {
