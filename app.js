@@ -2,10 +2,6 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
 
     .controller('AppCtrl', function($scope, $mdDialog) {
 
-        console.log($scope);
-
-        var self = this;
-
         $scope.answerCollection = [];
 
         $scope.status = ' ';
@@ -33,10 +29,8 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
 
         $scope.showPrerenderedDialog = function(ev) {
 
-            document.getElementById("demo").innerHTML = "cookiesEnabled is " + navigator.cookieEnabled + " on " + navigator.vendor + " " + navigator.userAgent;
-
             $mdDialog.show({
-                contentElement: '#myDialog',
+                contentElement: '#devConsole',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true
@@ -63,7 +57,6 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
 
     });
 
-
 (function () {
     'use strict';
     angular
@@ -89,25 +82,19 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
                 selectedChips.pop(chip);
             }
 
-            // console.log(selectedChips.indexOf(chip));
         }
 
-        self.checkChip = function(chip) {
-            var checkChip = chip;
-            console.log(checkChip);
-        }
-
-        /**
-         * Return the proper object when the append is called.
-         */
-        function transformChip(chip) {
-            // If it is an object, it's already a known chip
-            if (angular.isObject(chip)) {
-                return chip;
-            }
-            // Otherwise, create a new one
-            return { name: chip }
-        }
+        // /**
+        //  * Return the proper object when the append is called.
+        //  */
+        // function transformChip(chip) {
+        //     // If it is an object, it's already a known chip
+        //     if (angular.isObject(chip)) {
+        //         return chip;
+        //     }
+        //     // Otherwise, create a new one
+        //     return { example: chip }
+        // }
 
         /* SEARCH & Filtering */
 
@@ -115,798 +102,792 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
         self.selectedChips = [];
         // Selected item from autocomplete init
         self.selectedItem = null;
-        // Current search text within any autocompkete
+        // Current search text within any autocomplete
         self.searchText = null;
         // Array of Suggested items that have been selected
         // self.selectSuggest = [];
 
-        // Define query - NB: Seems easier to define seperate queries if intending multiple search modals, due to changing fields on chips.
-        self.querySearchThing = querySearchThing;
+        // Define query - possibly define multiple here
+        self.querySearchExample = querySearchExample;
 
 //   *****************
-        /* 1. THING. This is one chip-dialog-search-module. It is intended that you could copy and refactor this section for multiple different searches, sharing the above code between them.*/
+        /* 1. Example. This is one chip-dialog-search-module. It is intended that you could copy and refactor this section
+         for multiple different searches, sharing the above code between them.*/
         /* Some functions are not easily made DRY, mainly because of custom fields on chips */
 
-        self.Thing = loadThing();
+        self.example = loadExample();
 
-        self.transformThingChip = transformThingChip;
-        function transformThingChip(chip) {
+        self.transformExampleChip = transformExampleChip;
+        function transformExampleChip(chip) {
             // If it is an object, it's already a known chip
             if (angular.isObject(chip)) {
                 return chip;
             }
             // Otherwise, create a new one
-            return { thing: chip }
+            return { example: chip }
         }
-        // Define array of "things" into a function to load at once
-        function loadThing() {
+        // Define array of examples into a function to load at once
+        function loadExample() {
 
             var setarray = [
-                // Put whatever JSON here with key of 'thing:' for this example
                 // Current example == Linkedin Industry fields
                 {
                     "code": 47,
                     "groups": "corp, fin",
-                    "thing": "Accounting"
+                    "example": "Accounting"
                 },
                 {
                     "code": 94,
                     "groups": "man, tech, tran",
-                    "thing": "Airlines/Aviation"
+                    "example": "Airlines/Aviation"
                 },
                 {
                     "code": 120,
                     "groups": "leg, org",
-                    "thing": "Alternative Dispute Resolution"
+                    "example": "Alternative Dispute Resolution"
                 },
                 {
                     "code": 125,
                     "groups": "hlth",
-                    "thing": "Alternative Medicine"
+                    "example": "Alternative Medicine"
                 },
                 {
                     "code": 127,
                     "groups": "art, med",
-                    "thing": "Animation"
+                    "example": "Animation"
                 },
                 {
                     "code": 19,
                     "groups": "good",
-                    "thing": "Apparel & Fashion"
+                    "example": "Apparel & Fashion"
                 },
                 {
                     "code": 50,
                     "groups": "cons",
-                    "thing": "Architecture & Planning"
+                    "example": "Architecture & Planning"
                 },
                 {
                     "code": 111,
                     "groups": "art, med, rec",
-                    "thing": "Arts and Crafts"
+                    "example": "Arts and Crafts"
                 },
                 {
                     "code": 53,
                     "groups": "man",
-                    "thing": "Automotive"
+                    "example": "Automotive"
                 },
                 {
                     "code": 52,
                     "groups": "gov, man",
-                    "thing": "Aviation & Aerospace"
+                    "example": "Aviation & Aerospace"
                 },
                 {
                     "code": 41,
                     "groups": "fin",
-                    "thing": "Banking"
+                    "example": "Banking"
                 },
                 {
                     "code": 12,
                     "groups": "gov, hlth, tech",
-                    "thing": "Biotechnology"
+                    "example": "Biotechnology"
                 },
                 {
                     "code": 36,
                     "groups": "med, rec",
-                    "thing": "Broadcast Media"
+                    "example": "Broadcast Media"
                 },
                 {
                     "code": 49,
                     "groups": "cons",
-                    "thing": "Building Materials"
+                    "example": "Building Materials"
                 },
                 {
                     "code": 138,
                     "groups": "corp, man",
-                    "thing": "Business Supplies and Equipment"
+                    "example": "Business Supplies and Equipment"
                 },
                 {
                     "code": 129,
                     "groups": "fin",
-                    "thing": "Capital Markets"
+                    "example": "Capital Markets"
                 },
                 {
                     "code": 54,
                     "groups": "man",
-                    "thing": "Chemicals"
+                    "example": "Chemicals"
                 },
                 {
                     "code": 90,
                     "groups": "org, serv",
-                    "thing": "Civic & Social Organization"
+                    "example": "Civic & Social Organization"
                 },
                 {
                     "code": 51,
                     "groups": "cons, gov",
-                    "thing": "Civil Engineering"
+                    "example": "Civil Engineering"
                 },
                 {
                     "code": 128,
                     "groups": "cons, corp, fin",
-                    "thing": "Commercial Real Estate"
+                    "example": "Commercial Real Estate"
                 },
                 {
                     "code": 118,
                     "groups": "tech",
-                    "thing": "Computer & Network Security"
+                    "example": "Computer & Network Security"
                 },
                 {
                     "code": 109,
                     "groups": "med, rec",
-                    "thing": "Computer Games"
+                    "example": "Computer Games"
                 },
                 {
                     "code": 3,
                     "groups": "tech",
-                    "thing": "Computer Hardware"
+                    "example": "Computer Hardware"
                 },
                 {
                     "code": 5,
                     "groups": "tech",
-                    "thing": "Computer Networking"
+                    "example": "Computer Networking"
                 },
                 {
                     "code": 4,
                     "groups": "tech",
-                    "thing": "Computer Software"
+                    "example": "Computer Software"
                 },
                 {
                     "code": 48,
                     "groups": "cons",
-                    "thing": "Construction"
+                    "example": "Construction"
                 },
                 {
                     "code": 24,
                     "groups": "good, man",
-                    "thing": "Consumer Electronics"
+                    "example": "Consumer Electronics"
                 },
                 {
                     "code": 25,
                     "groups": "good, man",
-                    "thing": "Consumer Goods"
+                    "example": "Consumer Goods"
                 },
                 {
                     "code": 91,
                     "groups": "org, serv",
-                    "thing": "Consumer Services"
+                    "example": "Consumer Services"
                 },
                 {
                     "code": 18,
                     "groups": "good",
-                    "thing": "Cosmetics"
+                    "example": "Cosmetics"
                 },
                 {
                     "code": 65,
                     "groups": "agr",
-                    "thing": "Dairy"
+                    "example": "Dairy"
                 },
                 {
                     "code": 1,
                     "groups": "gov, tech",
-                    "thing": "Defense & Space"
+                    "example": "Defense & Space"
                 },
                 {
                     "code": 99,
                     "groups": "art, med",
-                    "thing": "Design"
+                    "example": "Design"
                 },
                 {
                     "code": 69,
                     "groups": "edu",
-                    "thing": "Education Management"
+                    "example": "Education Management"
                 },
                 {
                     "code": 132,
                     "groups": "edu, org",
-                    "thing": "E-Learning"
+                    "example": "E-Learning"
                 },
                 {
                     "code": 112,
                     "groups": "good, man",
-                    "thing": "Electrical/Electronic Manufacturing"
+                    "example": "Electrical/Electronic Manufacturing"
                 },
                 {
                     "code": 28,
                     "groups": "med, rec",
-                    "thing": "Entertainment"
+                    "example": "Entertainment"
                 },
                 {
                     "code": 86,
                     "groups": "org, serv",
-                    "thing": "Environmental Services"
+                    "example": "Environmental Services"
                 },
                 {
                     "code": 110,
                     "groups": "corp, rec, serv",
-                    "thing": "Events Services"
+                    "example": "Events Services"
                 },
                 {
                     "code": 76,
                     "groups": "gov",
-                    "thing": "Executive Office"
+                    "example": "Executive Office"
                 },
                 {
                     "code": 122,
                     "groups": "corp, serv",
-                    "thing": "Facilities Services"
+                    "example": "Facilities Services"
                 },
                 {
                     "code": 63,
                     "groups": "agr",
-                    "thing": "Farming"
+                    "example": "Farming"
                 },
                 {
                     "code": 43,
                     "groups": "fin",
-                    "thing": "Financial Services"
+                    "example": "Financial Services"
                 },
                 {
                     "code": 38,
                     "groups": "art, med, rec",
-                    "thing": "Fine Art"
+                    "example": "Fine Art"
                 },
                 {
                     "code": 66,
                     "groups": "agr",
-                    "thing": "Fishery"
+                    "example": "Fishery"
                 },
                 {
                     "code": 34,
                     "groups": "rec, serv",
-                    "thing": "Food & Beverages"
+                    "example": "Food & Beverages"
                 },
                 {
                     "code": 23,
                     "groups": "good, man, serv",
-                    "thing": "Food Production"
+                    "example": "Food Production"
                 },
                 {
                     "code": 101,
                     "groups": "org",
-                    "thing": "Fund-Raising"
+                    "example": "Fund-Raising"
                 },
                 {
                     "code": 26,
                     "groups": "good, man",
-                    "thing": "Furniture"
+                    "example": "Furniture"
                 },
                 {
                     "code": 29,
                     "groups": "rec",
-                    "thing": "Gambling & Casinos"
+                    "example": "Gambling & Casinos"
                 },
                 {
                     "code": 145,
                     "groups": "cons, man",
-                    "thing": "Glass, Ceramics & Concrete"
+                    "example": "Glass, Ceramics & Concrete"
                 },
                 {
                     "code": 75,
                     "groups": "gov",
-                    "thing": "Government Administration"
+                    "example": "Government Administration"
                 },
                 {
                     "code": 148,
                     "groups": "gov",
-                    "thing": "Government Relations"
+                    "example": "Government Relations"
                 },
                 {
                     "code": 140,
                     "groups": "art, med",
-                    "thing": "Graphic Design"
+                    "example": "Graphic Design"
                 },
                 {
                     "code": 124,
                     "groups": "hlth, rec",
-                    "thing": "Health, Wellness and Fitness"
+                    "example": "Health, Wellness and Fitness"
                 },
                 {
                     "code": 68,
                     "groups": "edu",
-                    "thing": "Higher Education"
+                    "example": "Higher Education"
                 },
                 {
                     "code": 14,
                     "groups": "hlth",
-                    "thing": "Hospital & Health Care"
+                    "example": "Hospital & Health Care"
                 },
                 {
                     "code": 31,
                     "groups": "rec, serv, tran",
-                    "thing": "Hospitality"
+                    "example": "Hospitality"
                 },
                 {
                     "code": 137,
                     "groups": "corp",
-                    "thing": "Human Resources"
+                    "example": "Human Resources"
                 },
                 {
                     "code": 134,
                     "groups": "corp, good, tran",
-                    "thing": "Import and Export"
+                    "example": "Import and Export"
                 },
                 {
                     "code": 88,
                     "groups": "org, serv",
-                    "thing": "Individual & Family Services"
+                    "example": "Individual & Family Services"
                 },
                 {
                     "code": 147,
                     "groups": "cons, man",
-                    "thing": "Industrial Automation"
+                    "example": "Industrial Automation"
                 },
                 {
                     "code": 84,
                     "groups": "med, serv",
-                    "thing": "Information Services"
+                    "example": "Information Services"
                 },
                 {
                     "code": 96,
                     "groups": "tech",
-                    "thing": "Information Technology and Services"
+                    "example": "Information Technology and Services"
                 },
                 {
                     "code": 42,
                     "groups": "fin",
-                    "thing": "Insurance"
+                    "example": "Insurance"
                 },
                 {
                     "code": 74,
                     "groups": "gov",
-                    "thing": "International Affairs"
+                    "example": "International Affairs"
                 },
                 {
                     "code": 141,
                     "groups": "gov, org, tran",
-                    "thing": "International Trade and Development"
+                    "example": "International Trade and Development"
                 },
                 {
                     "code": 6,
                     "groups": "tech",
-                    "thing": "Internet"
+                    "example": "Internet"
                 },
                 {
                     "code": 45,
                     "groups": "fin",
-                    "thing": "Investment Banking"
+                    "example": "Investment Banking"
                 },
                 {
                     "code": 46,
                     "groups": "fin",
-                    "thing": "Investment Management"
+                    "example": "Investment Management"
                 },
                 {
                     "code": 73,
                     "groups": "gov, leg",
-                    "thing": "Judiciary"
+                    "example": "Judiciary"
                 },
                 {
                     "code": 77,
                     "groups": "gov, leg",
-                    "thing": "Law Enforcement"
+                    "example": "Law Enforcement"
                 },
                 {
                     "code": 9,
                     "groups": "leg",
-                    "thing": "Law Practice"
+                    "example": "Law Practice"
                 },
                 {
                     "code": 10,
                     "groups": "leg",
-                    "thing": "Legal Services"
+                    "example": "Legal Services"
                 },
                 {
                     "code": 72,
                     "groups": "gov, leg",
-                    "thing": "Legislative Office"
+                    "example": "Legislative Office"
                 },
                 {
                     "code": 30,
                     "groups": "rec, serv, tran",
-                    "thing": "Leisure, Travel & Tourism"
+                    "example": "Leisure, Travel & Tourism"
                 },
                 {
                     "code": 85,
                     "groups": "med, rec, serv",
-                    "thing": "Libraries"
+                    "example": "Libraries"
                 },
                 {
                     "code": 116,
                     "groups": "corp, tran",
-                    "thing": "Logistics and Supply Chain"
+                    "example": "Logistics and Supply Chain"
                 },
                 {
                     "code": 143,
                     "groups": "good",
-                    "thing": "Luxury Goods & Jewelry"
+                    "example": "Luxury Goods & Jewelry"
                 },
                 {
                     "code": 55,
                     "groups": "man",
-                    "thing": "Machinery"
+                    "example": "Machinery"
                 },
                 {
                     "code": 11,
                     "groups": "corp",
-                    "thing": "Management Consulting"
+                    "example": "Management Consulting"
                 },
                 {
                     "code": 95,
                     "groups": "tran",
-                    "thing": "Maritime"
+                    "example": "Maritime"
                 },
                 {
                     "code": 97,
                     "groups": "corp",
-                    "thing": "Market Research"
+                    "example": "Market Research"
                 },
                 {
                     "code": 80,
                     "groups": "corp, med",
-                    "thing": "Marketing and Advertising"
+                    "example": "Marketing and Advertising"
                 },
                 {
                     "code": 135,
                     "groups": "cons, gov, man",
-                    "thing": "Mechanical or Industrial Engineering"
+                    "example": "Mechanical or Industrial Engineering"
                 },
                 {
                     "code": 126,
                     "groups": "med, rec",
-                    "thing": "Media Production"
+                    "example": "Media Production"
                 },
                 {
                     "code": 17,
                     "groups": "hlth",
-                    "thing": "Medical Devices"
+                    "example": "Medical Devices"
                 },
                 {
                     "code": 13,
                     "groups": "hlth",
-                    "thing": "Medical Practice"
+                    "example": "Medical Practice"
                 },
                 {
                     "code": 139,
                     "groups": "hlth",
-                    "thing": "Mental Health Care"
+                    "example": "Mental Health Care"
                 },
                 {
                     "code": 71,
                     "groups": "gov",
-                    "thing": "Military"
+                    "example": "Military"
                 },
                 {
                     "code": 56,
                     "groups": "man",
-                    "thing": "Mining & Metals"
+                    "example": "Mining & Metals"
                 },
                 {
                     "code": 35,
                     "groups": "art, med, rec",
-                    "thing": "Motion Pictures and Film"
+                    "example": "Motion Pictures and Film"
                 },
                 {
                     "code": 37,
                     "groups": "art, med, rec",
-                    "thing": "Museums and Institutions"
+                    "example": "Museums and Institutions"
                 },
                 {
                     "code": 115,
                     "groups": "art, rec",
-                    "thing": "Music"
+                    "example": "Music"
                 },
                 {
                     "code": 114,
                     "groups": "gov, man, tech",
-                    "thing": "Nanotechnology"
+                    "example": "Nanotechnology"
                 },
                 {
                     "code": 81,
                     "groups": "med, rec",
-                    "thing": "Newspapers"
+                    "example": "Newspapers"
                 },
                 {
                     "code": 100,
                     "groups": "org",
-                    "thing": "Non-Profit Organization Management"
+                    "example": "Non-Profit Organization Management"
                 },
                 {
                     "code": 57,
                     "groups": "man",
-                    "thing": "Oil & Energy"
+                    "example": "Oil & Energy"
                 },
                 {
                     "code": 113,
                     "groups": "med",
-                    "thing": "Online Media"
+                    "example": "Online Media"
                 },
                 {
                     "code": 123,
                     "groups": "corp",
-                    "thing": "Outsourcing/Offshoring"
+                    "example": "Outsourcing/Offshoring"
                 },
                 {
                     "code": 87,
                     "groups": "serv, tran",
-                    "thing": "Package/Freight Delivery"
+                    "example": "Package/Freight Delivery"
                 },
                 {
                     "code": 146,
                     "groups": "good, man",
-                    "thing": "Packaging and Containers"
+                    "example": "Packaging and Containers"
                 },
                 {
                     "code": 61,
                     "groups": "man",
-                    "thing": "Paper & Forest Products"
+                    "example": "Paper & Forest Products"
                 },
                 {
                     "code": 39,
                     "groups": "art, med, rec",
-                    "thing": "Performing Arts"
+                    "example": "Performing Arts"
                 },
                 {
                     "code": 15,
                     "groups": "hlth, tech",
-                    "thing": "Pharmaceuticals"
+                    "example": "Pharmaceuticals"
                 },
                 {
                     "code": 131,
                     "groups": "org",
-                    "thing": "Philanthropy"
+                    "example": "Philanthropy"
                 },
                 {
                     "code": 136,
                     "groups": "art, med, rec",
-                    "thing": "Photography"
+                    "example": "Photography"
                 },
                 {
                     "code": 117,
                     "groups": "man",
-                    "thing": "Plastics"
+                    "example": "Plastics"
                 },
                 {
                     "code": 107,
                     "groups": "gov, org",
-                    "thing": "Political Organization"
+                    "example": "Political Organization"
                 },
                 {
                     "code": 67,
                     "groups": "edu",
-                    "thing": "Primary/Secondary Education"
+                    "example": "Primary/Secondary Education"
                 },
                 {
                     "code": 83,
                     "groups": "med, rec",
-                    "thing": "Printing"
+                    "example": "Printing"
                 },
                 {
                     "code": 105,
                     "groups": "corp",
-                    "thing": "Professional Training & Coaching"
+                    "example": "Professional Training & Coaching"
                 },
                 {
                     "code": 102,
                     "groups": "corp, org",
-                    "thing": "Program Development"
+                    "example": "Program Development"
                 },
                 {
                     "code": 79,
                     "groups": "gov",
-                    "thing": "Public Policy"
+                    "example": "Public Policy"
                 },
                 {
                     "code": 98,
                     "groups": "corp",
-                    "thing": "Public Relations and Communications"
+                    "example": "Public Relations and Communications"
                 },
                 {
                     "code": 78,
                     "groups": "gov",
-                    "thing": "Public Safety"
+                    "example": "Public Safety"
                 },
                 {
                     "code": 82,
                     "groups": "med, rec",
-                    "thing": "Publishing"
+                    "example": "Publishing"
                 },
                 {
                     "code": 62,
                     "groups": "man",
-                    "thing": "Railroad Manufacture"
+                    "example": "Railroad Manufacture"
                 },
                 {
                     "code": 64,
                     "groups": "agr",
-                    "thing": "Ranching"
+                    "example": "Ranching"
                 },
                 {
                     "code": 44,
                     "groups": "cons, fin, good",
-                    "thing": "Real Estate"
+                    "example": "Real Estate"
                 },
                 {
                     "code": 40,
                     "groups": "rec, serv",
-                    "thing": "Recreational Facilities and Services"
+                    "example": "Recreational Facilities and Services"
                 },
                 {
                     "code": 89,
                     "groups": "org, serv",
-                    "thing": "Religious Institutions"
+                    "example": "Religious Institutions"
                 },
                 {
                     "code": 144,
                     "groups": "gov, man, org",
-                    "thing": "Renewables & Environment"
+                    "example": "Renewables & Environment"
                 },
                 {
                     "code": 70,
                     "groups": "edu, gov",
-                    "thing": "Research"
+                    "example": "Research"
                 },
                 {
                     "code": 32,
                     "groups": "rec, serv",
-                    "thing": "Restaurants"
+                    "example": "Restaurants"
                 },
                 {
                     "code": 27,
                     "groups": "good, man",
-                    "thing": "Retail"
+                    "example": "Retail"
                 },
                 {
                     "code": 121,
                     "groups": "corp, org, serv",
-                    "thing": "Security and Investigations"
+                    "example": "Security and Investigations"
                 },
                 {
                     "code": 7,
                     "groups": "tech",
-                    "thing": "Semiconductors"
+                    "example": "Semiconductors"
                 },
                 {
                     "code": 58,
                     "groups": "man",
-                    "thing": "Shipbuilding"
+                    "example": "Shipbuilding"
                 },
                 {
                     "code": 20,
                     "groups": "good, rec",
-                    "thing": "Sporting Goods"
+                    "example": "Sporting Goods"
                 },
                 {
                     "code": 33,
                     "groups": "rec",
-                    "thing": "Sports"
+                    "example": "Sports"
                 },
                 {
                     "code": 104,
                     "groups": "corp",
-                    "thing": "Staffing and Recruiting"
+                    "example": "Staffing and Recruiting"
                 },
                 {
                     "code": 22,
                     "groups": "good",
-                    "thing": "Supermarkets"
+                    "example": "Supermarkets"
                 },
                 {
                     "code": 8,
                     "groups": "gov, tech",
-                    "thing": "Telecommunications"
+                    "example": "Telecommunications"
                 },
                 {
                     "code": 60,
                     "groups": "man",
-                    "thing": "Textiles"
+                    "example": "Textiles"
                 },
                 {
                     "code": 130,
                     "groups": "gov, org",
-                    "thing": "Think Tanks"
+                    "example": "Think Tanks"
                 },
                 {
                     "code": 21,
                     "groups": "good",
-                    "thing": "Tobacco"
+                    "example": "Tobacco"
                 },
                 {
                     "code": 108,
                     "groups": "corp, gov, serv",
-                    "thing": "Translation and Localization"
+                    "example": "Translation and Localization"
                 },
                 {
                     "code": 92,
                     "groups": "tran",
-                    "thing": "Transportation/Trucking/Railroad"
+                    "example": "Transportation/Trucking/Railroad"
                 },
                 {
                     "code": 59,
                     "groups": "man",
-                    "thing": "Utilities"
+                    "example": "Utilities"
                 },
                 {
                     "code": 106,
                     "groups": "fin, tech",
-                    "thing": "Venture Capital & Private Equity"
+                    "example": "Venture Capital & Private Equity"
                 },
                 {
                     "code": 16,
                     "groups": "hlth",
-                    "thing": "Veterinary"
+                    "example": "Veterinary"
                 },
                 {
                     "code": 93,
                     "groups": "tran",
-                    "thing": "Warehousing"
+                    "example": "Warehousing"
                 },
                 {
                     "code": 133,
                     "groups": "good",
-                    "thing": "Wholesale"
+                    "example": "Wholesale"
                 },
                 {
                     "code": 142,
                     "groups": "good, man, rec",
-                    "thing": "Wine and Spirits"
+                    "example": "Wine and Spirits"
                 },
                 {
                     "code": 119,
                     "groups": "tech",
-                    "thing": "Wireless"
+                    "example": "Wireless"
                 },
                 {
                     "code": 103,
                     "groups": "art, med, rec",
-                    "thing": "Writing and Editing"
+                    "example": "Writing and Editing"
                 }
             ];
 
-            return setarray.map(function (Thing) {
-                Thing._lowername = Thing.thing.toLowerCase();
-                return Thing;
+            return setarray.map(function (example) {
+                example._lowername = example.example.toLowerCase();
+                return example;
             });
         }
         /**
          * Search items.
          */
-        function querySearchThing (query) {
-            var results = query ? self.Thing.filter(createFilterForThing(query)) : [];
+        function querySearchExample (query) {
+            var results = query ? self.example.filter(createFilterForExample(query)) : [];
             return results;
         }
         /**
          * Create filter function for a query string. Filter run once on search of particular string.
          */
-        function createFilterForThing(query) {
+        function createFilterForExample(query) {
             var lowercaseQuery = angular.lowercase(query);
 
-            return function filterFN(Thing) {
-                // Logs -1 if no match found for query in string, logs index of character in string if match
-                // console.log(Thing._lowername.indexOf(lowercaseQuery));
-                // Logs match
-                // if ( Thing._lowername.indexOf(lowercaseQuery) === 0) {
-                //     console.log(Thing);
-                // }
-                return (Thing._lowername.indexOf(lowercaseQuery) === 0);
+            return function filterFN(example) {
+                return (example._lowername.indexOf(lowercaseQuery) === 0);
             };
         }
     }

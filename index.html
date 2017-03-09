@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>AngularJS/Angular Material Chip-Dialog-Search</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
@@ -29,20 +29,22 @@
 
     <div class="dialog-demo-prerendered">
         <md-checkbox ng-model="listPrerenderedButton">See Answers/'back-end'</md-checkbox>
-        <md-checkbox ng-model="customFullscreen" aria-label="Fullscreen custom dialog">Use full screen mode for custom dialog</md-checkbox>
+        <md-checkbox ng-model="customFullscreen" aria-label="Fullscreen custom dialog">
+            Use full screen mode for custom dialog
+        </md-checkbox>
     </div>
 
     <div style="visibility: hidden">
-        <div class="md-dialog-container" id="myDialog">
+        <div class="md-dialog-container" id="devConsole">
             <md-dialog layout-padding="">
                 <h3>pre-render/dev console</h3>
                 <br>
                 <div ng-if="status" id="status">
                     <b layout="column" layout-align="center center" class="md-padding">
-                        <div id="demo"></div>
+<pre>
     "current answer":
 {{answerCurrent}}
-<pre>
+
     "Collection of all answers:"
 {{answerCollection}}
 </pre>
@@ -67,22 +69,28 @@
                         </md-button>
                     </md-dialog-actions>
                 </div>
-                <!--searchInput is a md-chip & md-autocomplete that has display:none applied to the chips at its element. The chips are added to the ng-model that is displayed visually in following md-chips-->
+            <!--searchInput is a md-chip & md-autocomplete that has display:none applied to the chips at its element.
+             The chips are added to the ng-model that is displayed visually in following md-chips-->
                 <md-input-container name="searchInput" class="" md-no-float="true">
-                    <md-chips class="clearsearchchips searchInput" md-autocomplete-snap="" readonly="false" ng-model="ctrl.selectedChips" md-transform-chip="ctrl.transformThingChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch" md-removable="false">
-                        <md-autocomplete md-autofocus md-menu-class="menuitem" md-select-on-match="true"	md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearchThing(ctrl.searchText)" md-item-text="item.thing" placeholder="Search...">
-                            <span md-highlight-text="ctrl.searchText" placeholder="">{{item.thing}}</span>
+                    <md-chips class="clearsearchchips searchInput" md-autocomplete-snap="" readonly="false"
+                              ng-model="ctrl.selectedChips" md-transform-chip="ctrl.transformExampleChip($chip)"
+                              md-require-match="ctrl.autocompleteDemoRequireMatch" md-removable="false">
+                        <md-autocomplete md-autofocus md-menu-class="menuitem" md-select-on-match="true"
+                                         md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
+                                         md-items="item in ctrl.querySearchExample(ctrl.searchText)"
+                                         md-item-text="item.example" placeholder="Search...">
+                            <span md-highlight-text="ctrl.searchText" placeholder="">{{item.example}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                                     <span>
-                                      <strong>{{$chip.thing}}</strong>
+                                      <strong>{{$chip.example}}</strong>
                                     </span>
                         </md-chip-template>
                     </md-chips>
                 </md-input-container>
             </md-toolbar>
 
-            <!--TODO: fix css issue with MD-content under-lapping md-toolbar when large amount of content in dialog... <br>'s for now -->
+<!--TODO: fix css issue with MD-content under-lapping md-toolbar when large amount of content in md-dialog -->
             <br><br><br><br><br><br><br><br><br>
 
             <md-dialog-content>
@@ -93,22 +101,32 @@
                         <span ng-show="!ctrl.searchText.length && ctrl.selectedChips.length">Selected:</span>
                         <!--<span ng-show="ctrl.searchText.length">Entered!</span>-->
                         <div>
-                            <!--md-chips that have been pushed into selectedChips, not visible when search input empty   -->
-                            <md-chips ng-show="!ctrl.searchText.length" md-autocomplete-snap="" class="selected" readonly="true" ng-model="ctrl.selectedChips" md-transform-chip="ctrl.transformChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch" md-removable="false">
-                                <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.thing" placeholder="..">
-                                    <span md-highlight-text="ctrl.searchText" placeholder="">{{item.thing}}</span>
+                        <!--md-chips that have been pushed into selectedChips, not visible when search input empty-->
+                            <md-chips ng-show="!ctrl.searchText.length" md-autocomplete-snap="" class="selected"
+                                      readonly="true" ng-model="ctrl.selectedChips"
+                                      md-transform-chip="ctrl.transformChip($chip)"
+                                      md-require-match="ctrl.autocompleteDemoRequireMatch"
+                                      md-removable="false">
+                                <md-autocomplete md-selected-item="ctrl.selectedItem"
+                                                 md-search-text="ctrl.searchText"
+                                                 md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                                 md-item-text="item.example" placeholder="..">
+                                    <span md-highlight-text="ctrl.searchText" placeholder="">{{item.example}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>
                                             <span md-chip-remove>
-                                                {{$chip.thing}}
+                                                {{$chip.example}}
                                             </span>
                                 </md-chip-template>
                             </md-chips>
                         </div>
                         <hr width="100%">
-                        <!--Show chips 1. that are currently within search scope from the array and able to be selected to be added. 2. Add selected class if in selectedChips NB Former logic of:  ng-if="ctrl.selectedChips.indexOf($chip) == -1" i.e. "only show if not in the index of selected- chips -->
+    <!--Show chips 1. that are currently within search scope from the array and able to be selected to be added.
+     2. Add selected class if in selectedChips -->
                         <md-chips class="">
-                            <md-chip ng-class="ctrl.selectedChips.indexOf($chip) !== -1 ? 'formchoice' : 'custom-chips'" ng-repeat="$chip in ctrl.Thing | filter:ctrl.searchText" ng-click="ctrl.selectChip($chip)">{{ $chip.thing }}</md-chip>
+                            <md-chip ng-class="ctrl.selectedChips.indexOf($chip) !== -1 ? 'formchoice' : 'custom-chips'"
+                                     ng-repeat="$chip in ctrl.example | filter:ctrl.searchText"
+                                     ng-click="ctrl.selectChip($chip)">{{ $chip.example }}</md-chip>
                         </md-chips>
                     </md-content>
                 </md-dialog-content>
