@@ -7,6 +7,8 @@
 
 [Online Demo hosted on Codepen of commit `04ff4f0` / `v0.2`](https://codepen.io/airbridge/pen/mWrYxv)
 
+![](https://i.imgur.com/OV0Zbwy.gifv)
+
 #### Local
 
 1. Clone the repository `git clone https://github.com/airbr/ngchip-dialog-search.git`
