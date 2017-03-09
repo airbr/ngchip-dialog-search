@@ -7,7 +7,7 @@
 
 [Online Demo hosted on Codepen of commit `04ff4f0` / `v0.2`](https://codepen.io/airbridge/pen/mWrYxv)
 
-![](https://i.imgur.com/OV0Zbwy.gifv)
+![](https://i.imgur.com/OV0Zbwy.gif)
 
 #### Local
 
