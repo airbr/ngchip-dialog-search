@@ -5,7 +5,7 @@
 
 #### Online
 
-[Online Demo hosted on Codepen of commit `50716ba`](https://codepen.io/airbridge/pen/mWrYxv)
+[Online Demo hosted on Codepen of commit `04ff4f0` / `v0.2`](https://codepen.io/airbridge/pen/mWrYxv)
 
 #### Local
 
@@ -30,7 +30,7 @@
 	* [SVG Assets Cache](https://github.com/angular/material/blob/master/docs/guides/CODEPEN.md)
 	* Angular Material 1.1.3
 
-### Suggestions for testing:
+<!--### Suggestions for testing:
 
 1. Change out JSON Array - either change the name of chips from `thing` to match your array properties or to adjust your array items proprties to `thing` to be visible on the chip label/ avoid errors.
 2. Try putting a reasonably big JSON array in there. The Dialog should still load quickly and the suggestions/chips you see should still perform quickly.
@@ -39,10 +39,9 @@
 	* Seeing selected/non-selected chips filtered below as you type
 	* Selected/de-selecting chips
 	* The view of selected of chips at rest i.e. no input in the search text
-4. Look at the 'dev console' button to seen an example of the kind of array could comes out of the choices you submitted for practical use/interaction with the back-end.
+4. Look at the 'dev console' button to seen an example of the kind of array could comes out of the choices you submitted for practical use/interaction with the back-end.-->
 
-
-### Summary
+### Summary / Background
 
 > An AngularJS/Angular Material project aiming to combine the ngMaterial directives [`md-dialog`](https://material.angularjs.org/latest/api/directive/mdDialog), [`md-chips`](https://material.angularjs.org/latest/api/directive/mdChips) and [`md-autocomplete`](https://material.angularjs.org/latest/api/directive/mdAutocomplete) to create a reasonably re-usable and performant UI module with the ability to:
 > 
@@ -54,7 +53,7 @@
   * Necessary CSS/Angular Logic applied to depict chips that have been selected/ avoid duplicates etc including:
    * Style selected chips with ng-class, requiring targeting a class from a grandparent selector since you cannot apply styles directly on md-chip-template
    * Show chips with these applied selected styles as they are being filtered in the search
-  * Close the `md-dialog` and submit the choices you have made that are saved in a variable in a flexible JSON formay for parsing/calling to an API
+  * Close the `md-dialog` and submit the choices you have made that are saved in a variable in JSON for handing off
   
 
 This project comes out of difficulties experienced with using [Angular Material for Angular 1.x](https://material.angularjs.org/latest/) after being instructed to use a number of particular directives in the workplace. Angular Material directives can be very enticing and desirable based on their initial demonstrations/examples- most people would say that they are 'cool' and I have been instructed by clients to use them in particular ways. AngularJS/ 1.x is also not particularly supported anymore so it is not likely that major fixes/additions are coming anytime.
@@ -64,8 +63,10 @@ However as I was having to modify the usage of these directives I found a lot of
 Performance wise when I started I found lots of problems, the dialog loaded slowly with lots of chips in it, the chips loading slowly because they were being loaded from the model, the filter was running slowly... These primarily seemed to be solved by mapping the JSON array to prepare it for filtering and searching via an IIFE in the beginning and then limiting the scope of what was being repeated in the view. I used ng-repeat and filters where I could instead of ng-model and limiting ng-model to the input process only as much as possible.
 
 
-#### Future development
+#### development
 
-As at `v0.1` this project is my attempt at paring it down to the bare minimum for something re-usable. Im sure it can be simplified further. This makes it a little more challenging for demonstration purposes, as the current example has a number of issues like the dialog resizing rapidly.
+`v0.2` Cleaned up with more consistent/clear naming and conventions in the demonstration. Next is to enable requireJS like loading in of the data into the controller for a truly interactive/dynamic demo.
+
+`v0.1` My attempt at paring it down to the bare minimum to prepare to make it something re-usable.
 		
 

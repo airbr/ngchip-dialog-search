@@ -1,6 +1,6 @@
-angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+angular.module('chipDialogSearch', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 
-    .controller('AppCtrl', function($scope, $mdDialog) {
+    .controller('AppCtrl', function ($scope, $mdDialog) {
 
         $scope.answerCollection = [];
 
@@ -9,25 +9,25 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
         /* Set to true for full screen mobile testing of dialogs by default. */
         $scope.customFullscreen = true;
 
-        $scope.showAdvanced = function(ev) {
+        $scope.showAdvanced = function (ev) {
             $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'dialog1.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true,
+                clickOutsideToClose: true,
                 fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
             })
-                .then(function(answer) {
+                .then(function (answer) {
                     $scope.answerCurrent = answer;
                     $scope.answerCollection.push(answer);
-                }, function() {
+                }, function () {
                     $scope.status = 'Exit';
 
                 });
         };
 
-        $scope.showPrerenderedDialog = function(ev) {
+        $scope.showPrerenderedDialog = function (ev) {
 
             $mdDialog.show({
                 contentElement: '#devConsole',
@@ -39,17 +39,17 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
 
         function DialogController($scope, $mdDialog) {
 
-            $scope.hide = function() {
+            $scope.hide = function () {
                 console.log("hide");
                 $mdDialog.hide();
             };
 
-            $scope.cancel = function() {
+            $scope.cancel = function () {
                 console.log("cancel");
                 $mdDialog.cancel();
             };
 
-            $scope.answer = function(answer) {
+            $scope.answer = function (answer) {
                 console.log("answer");
                 $mdDialog.hide(answer);
             };
@@ -63,7 +63,7 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
         .module('chipDialogSearch')
         .controller('CustomInputCtrl', chipCtrl);
 
-    function chipCtrl ($timeout, $q, $scope, $mdDialog) {
+    function chipCtrl($timeout, $q, $scope, $mdDialog) {
 
         var self = this;
 
@@ -72,7 +72,7 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
         self.autocompleteDemoRequireMatch = false;
         self.removable = false;
 
-        self.selectChip = function(chip) {
+        self.selectChip = function (chip) {
             var selectedChips = self.selectedChips;
             if (selectedChips.indexOf(chip) == -1) {
                 selectedChips.push(chip);
@@ -108,8 +108,9 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
                 return chip;
             }
             // Otherwise, create a new one
-            return { example: chip }
+            return {example: chip}
         }
+
         // Define array of examples into a function to load at once
         function loadExample() {
 
@@ -122,13 +123,15 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
                 return example;
             });
         }
+
         /**
          * Search items.
          */
-        function querySearchExample (query) {
+        function querySearchExample(query) {
             var results = query ? self.example.filter(createFilterForExample(query)) : [];
             return results;
         }
+
         /**
          * Create filter function for a query string. Filter run once on search of particular string.
          */
