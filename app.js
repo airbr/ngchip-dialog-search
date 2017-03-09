@@ -884,7 +884,7 @@ angular.module('chipDialogSearch',['ngMaterial', 'ngMessages', 'material.svgAsse
          * Create filter function for a query string. Filter run once on search of particular string.
          */
         function createFilterForExample(query) {
-            var lowercaseQuery = angular.lowercase(query);
+            var lowercaseQuery = query.toLowerCase();
 
             return function filterFN(example) {
                 return (example._lowername.indexOf(lowercaseQuery) === 0);
