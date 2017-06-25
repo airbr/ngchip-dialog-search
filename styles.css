@@ -1,3 +1,19 @@
+#centerpiece {
+    height: 65vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+md-dialog md-dialog-actions {
+    padding-left: 0px !important;
+}
+
+md-content {
+    height: 80vw;
+    width: 80vw;
+}
+
 /* Unoffical Work-around for issues with autocomplete search suggestion height See:
 http://stackoverflow.com/questions/37661507/set-custom-heigh-angular-material-autocomplete-dropdown
  */
