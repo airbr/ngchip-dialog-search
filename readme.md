@@ -3,11 +3,6 @@
 
 # Get started
 
-#### Online
-
-[Online Demo hosted on Codepen of commit `04ff4f0` / `v0.2`](https://codepen.io/airbridge/pen/mWrYxv)
-
-![](https://i.imgur.com/OV0Zbwy.gif)
 
 #### Local
 
@@ -45,7 +40,7 @@
 
 ### Summary / Background
 
-> An AngularJS/Angular Material project aiming to combine the ngMaterial directives [`md-dialog`](https://material.angularjs.org/latest/api/directive/mdDialog), [`md-chips`](https://material.angularjs.org/latest/api/directive/mdChips) and [`md-autocomplete`](https://material.angularjs.org/latest/api/directive/mdAutocomplete) to create a reasonably re-usable and performant UI module with the ability to:
+> a piece of angularJS code aiming to combine the ngMaterial directives [`md-dialog`](https://material.angularjs.org/latest/api/directive/mdDialog), [`md-chips`](https://material.angularjs.org/latest/api/directive/mdChips) and [`md-autocomplete`](https://material.angularjs.org/latest/api/directive/mdAutocomplete) to create a reasonably re-usable and performant UI module with the ability to:
 > 
   * Open a `md-dialog` that contains the following interface in its own scope:
   * The ability to input text to search over a JSON Array and present autocomplete suggestions, simultaneously filter visible `md-chips` in the view based on the same searchtext
@@ -57,18 +52,8 @@
    * Show chips with these applied selected styles as they are being filtered in the search
   * Close the `md-dialog` and submit the choices you have made that are saved in a variable in JSON for handing off
   
+#### Online
 
-This project comes out of difficulties experienced with using [Angular Material for Angular 1.x](https://material.angularjs.org/latest/) after being instructed to use a number of particular directives in the workplace. Angular Material directives can be very enticing and desirable based on their initial demonstrations/examples- most people would say that they are 'cool' and I have been instructed by clients to use them in particular ways. AngularJS/ 1.x is also not particularly supported anymore so it is not likely that major fixes/additions are coming anytime.
+[Online Demo hosted on Codepen of commit `04ff4f0` / `v0.2`](https://codepen.io/airbridge/pen/mWrYxv)
 
-However as I was having to modify the usage of these directives I found a lot of difficulty and some creativity was required to actually get the directives to work together. The project ended up including a number of css-workarounds and applying a pretty full range of Angular directives such as `ng-filter`, `ng-if`, `ng-show`, `ng-class` and more while keeping attention to their proper usage to avoid it loading slowly/not performing. 
-
-Performance wise when I started I found lots of problems, the dialog loaded slowly with lots of chips in it, the chips loading slowly because they were being loaded from the model, the filter was running slowly... These primarily seemed to be solved by mapping the JSON array to prepare it for filtering and searching via an IIFE in the beginning and then limiting the scope of what was being repeated in the view. I used ng-repeat and filters where I could instead of ng-model and limiting ng-model to the input process only as much as possible.
-
-
-#### development
-
-`v0.2` Cleaned up with more consistent/clear naming and conventions in the demonstration. Next is to enable requireJS like loading in of the data into the controller for a truly interactive/dynamic demo.
-
-`v0.1` My attempt at paring it down to the bare minimum to prepare to make it something re-usable.
-		
-
+![](https://i.imgur.com/OV0Zbwy.gif)
